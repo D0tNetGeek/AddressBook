@@ -19,7 +19,9 @@ namespace AddressBook.FileOperations
         public IList<ContactDto> GetAllContacts()
         {
             var lines = _fileReader.GetAllContactLines(AddressBookFilePath);
+
             var contacts = new List<ContactDto>();
+
             foreach (var line in lines)
             {
                 var newContact = new ContactDto
