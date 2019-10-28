@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using AddressBook.FileOperations;
+using AddressBook.Service;
+using AddressBook.Service.Models;
 using Moq;
 using Xunit;
 
@@ -10,11 +14,11 @@ namespace AddressBook.Services.Tests
         private IAddressBookFileOperations _addressBookFileOperations;
         private IAddressBookService _addressBookService;
 
-        public AddressBookServiceTest()
+        public AddressBookServiceTests()
         {
-            var addressBookServiceMock = new Mock<IAddressBookService>();
+            var addressBookFileOperationsMock = new Mock<IAddressBookFileOperations>();
 
-            addressBookServiceMock.Setup(addressBookService => addressBookService.GetAllContacts()).Returns(new List<ContactDto>()
+            addressBookFileOperationsMock.Setup(addressBookService => addressBookService.GetAllContacts()).Returns(new List<ContactDto>()
             {
                 new ContactDto(){Name = "John Snow",Gender=Gender.Male,BirthDate=DateTime.Parse("16/03/77")},
                 new ContactDto(){Name = "Jimmy Neutron",Gender=Gender.Male,BirthDate=DateTime.Parse("15/01/85")},
@@ -23,17 +27,17 @@ namespace AddressBook.Services.Tests
                 new ContactDto(){Name = "Chuck Jackson",Gender=Gender.Male,BirthDate=DateTime.Parse("14/08/74")},
             });
 
-            _addressBookFileOperations = addressBookServiceMock.Object;
+            _addressBookFileOperations = addressBookFileOperationsMock.Object;
             _addressBookService = new AddressBookService();
         }
 
         [Fact]
         public void GetOldest_InputAllPersons_ReturnChuckJackson()
         {
-            var contacts = _addressBookFileOperations.GetAll();
+            var contacts = _addressBookFileOperations.GetAllContacts();
             var expected = contacts.Last();
 
-            var actual = _addressBookService.GetOldest(contacts);
+            var actual = _addressBookService.GetOldestPerson(contacts);
 
             Assert.Equal(expected, actual);
         }
@@ -41,10 +45,10 @@ namespace AddressBook.Services.Tests
         [Fact]
         public void CountPerGender_InputAllPersons_ReturnThree()
         {
-            var contacts = _addressBookFileOperations.GetAll();
+            var contacts = _addressBookFileOperations.GetAllContacts();
             var expected = 3;
 
-            var actual = _addressBookService.CountPerGender(Gender.Male, contacts);
+            var actual = _addressBookService.CountPersonsBasedOnGender(Gender.Male, contacts);
 
             Assert.Equal(expected, actual);
         }
@@ -56,7 +60,7 @@ namespace AddressBook.Services.Tests
             var contact2 = new ContactDto() { Name = "Jimmy Neutron", Gender = Gender.Male, BirthDate = DateTime.Parse("15/01/85") };
             var expected = 2862;
 
-            var actual = _addressBookService.GetDaysBetween(contact1, contact2);
+            var actual = _addressBookService.GetDaysBetweenTwoPersons(contact1, contact2);
 
             Assert.Equal(expected, actual);
         }

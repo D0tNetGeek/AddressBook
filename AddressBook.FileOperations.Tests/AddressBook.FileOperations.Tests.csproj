@@ -15,5 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AddressBook.FileOperations\AddressBook.FileOperations.csproj" />
+    <ProjectReference Include="..\AddressBook.Service\AddressBook.Service.csproj" />
   </ItemGroup>
 </Project>

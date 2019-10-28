@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AddressBook.Service.Models;
 
 namespace AddressBook.FileOperations
 {

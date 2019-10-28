@@ -1,3 +1,6 @@
+using System.Linq;
+using AddressBook.Service;
+using AddressBook.Service.Models;
 using Moq;
 using Xunit;
 
@@ -21,7 +24,7 @@ namespace AddressBook.FileOperations.Tests
 
             fileReaderMock.Setup(fileReader => fileReader.GetAllContactLines(It.IsAny<string>())).Returns(addressBookLines);
 
-            _addressBookFileOperations = new AddressBookFileOperation(fileReaderMock.Object);
+            _addressBookFileOperations = new AddressBookFileOperations(fileReaderMock.Object);
         }
 
         [Fact]
