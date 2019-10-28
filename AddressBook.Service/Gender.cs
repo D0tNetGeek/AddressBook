@@ -1,7 +1,8 @@
-﻿using System;
-namespace AddressBook.Service
+﻿namespace AddressBook.Service
 {
-    public struct Gender
+    public enum Gender
     {
+        Male = 1,
+        Female = 2
     }
 }

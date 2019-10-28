@@ -1,7 +1,7 @@
-﻿using System;
-namespace AddressBook.FileOperations
+﻿namespace AddressBook.FileOperations
 {
     public interface IFileReader
     {
+        string[] GetAllContactLines(string filePath);
     }
 }

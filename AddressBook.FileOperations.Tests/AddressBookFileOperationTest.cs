@@ -19,7 +19,7 @@ namespace AddressBook.FileOperations.Tests
             };
             var fileReaderMock = new Mock<IFileReader>();
 
-            fileReaderMock.Setup(fileReader => fileReader.GetAllLines(It.IsAny<string>())).Returns(addressBookLines);
+            fileReaderMock.Setup(fileReader => fileReader.GetAllContactLines(It.IsAny<string>())).Returns(addressBookLines);
 
             _addressBookFileOperations = new AddressBookFileOperation(fileReaderMock.Object);
         }
@@ -27,7 +27,7 @@ namespace AddressBook.FileOperations.Tests
         [Fact]
         public void GetAllContacts_InputIsFilePath_ReturnContacts()
         {
-            var contacts = _addressBookFileOperations.GetAllContactLines();
+            var contacts = _addressBookFileOperations.GetAllContacts();
 
             Assert.IsType<ContactDto>(contacts.First());
         }
@@ -35,7 +35,7 @@ namespace AddressBook.FileOperations.Tests
         [Fact]
         public void GetAllContacts_InputIsFilePath_ReturnFourContacts()
         {
-            var contacts = _addressBookFileOperations.GetAll();
+            var contacts = _addressBookFileOperations.GetAllContacts();
 
             Assert.Equal(5, contacts.Count);
         }
@@ -43,7 +43,7 @@ namespace AddressBook.FileOperations.Tests
         [Fact]
         public void GetAllContacts_InputIsFilePath_ShouldMapPropertiesProperly()
         {
-            var contacts = _addressBookFileOperations.GetAll();
+            var contacts = _addressBookFileOperations.GetAllContacts();
             var firstContact = contacts.First();
 
             Assert.Equal("John Snow", firstContact.Name);
