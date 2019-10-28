@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AddressBook.FileOperations;
+using AddressBook.Service;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AddressBook.Console
 {
@@ -6,7 +8,11 @@ namespace AddressBook.Console
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var serviceProvider = new ServiceCollection()
+                .AddSingleton<IAddressBookFileOperations, AddressBookFileOperations>()
+                .AddSingleton<IAddressBookService, AddressBookService>()
+                .AddSingleton<IFileReader, FileReader>()
+                .BuildServiceProvider();
         }
     }
 }
