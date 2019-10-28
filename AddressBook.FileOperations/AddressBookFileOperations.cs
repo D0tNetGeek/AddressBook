@@ -27,9 +27,10 @@ namespace AddressBook.FileOperations
                 var newContact = new ContactDto
                 {
                     Name = line.Split(',')[0],
-                    Gender = line.Split(',')[1] == "Male" ? Gender.Male : Gender.Female,
+                    Gender = line.Split(',')[1].Trim() == "Male" ? Gender.Male : Gender.Female,
                     BirthDate = DateTime.Parse(line.Split(',')[2])
                 };
+
                 contacts.Add(newContact);
             }
 
